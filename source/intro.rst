@@ -4,6 +4,9 @@ Introduction
 Phoebus is an update of the Control System Studio toolset
 that removes dependencies on Eclipse RCP and SWT.
 
+.. image:: phoebus_example.png
+      :width: 90%
+
 While Eclipse RCP has served CS-Studio well for about a decade,
 we are beginning to experience its limitations for control system
 user interface developemnt.

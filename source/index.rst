@@ -6,8 +6,7 @@
 Welcome to the Phoebus Documentation!
 =====================================
 
-.. image:: phoebus_example.png
-   :width: 70%
+.. image:: splash.png
 
 Contents:
 
