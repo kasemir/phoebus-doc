@@ -18,6 +18,8 @@ Contents:
    docking
    preferences
    persistence
+   develop
+   architecture
 
 
 Indices and tables
