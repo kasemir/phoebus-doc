@@ -9,7 +9,8 @@ The fundamental phoebus architecture consists of basic *core* modules
 and user-iterface related *core-ui* modules, all based on the latest
 Java technology, which at this time is Java 9.
 
- * core/applications
+ * core/applications:
+ 
    Each application feature provides an application descriptior
    that describes to the Phoebus framework what the name of
    the application is, which types of data files it might accept,
@@ -27,43 +28,76 @@ Java technology, which at this time is Java 9.
    in the `lib/` directory of the product.
    Adding or removing Probe, PV Tree, .. from a product
    is done by simply adding or removing the respective jar files.
- * core/logging
+   
+ * core/logging:
+ 
    Based on `java.util.logging`
- * core/preferences
+   
+ * core/preferences:
+ 
    Based on `java.util.preferences`
- * core/persistence
+   
+ * core/persistence:
+ 
    On shutdown, the state of all windows and tabs is persisted
    in a memento file, and each *AppDescriptor* can also
    persist its own state.
    On startup, each window and tab is restored,
    the applications are restarted, and each application
    can restore its specific state from the memento.
- * core/jobs
+ 
+ * core/jobs:
+ 
    This API allows submitting jobs based on a `JobRunnable`
    that supports progress reporting and cancellation.
- * core/pv
+ 
+ * core/pv:
+ 
    API for access to life data from Process Variables.
- * core/archive
+ 
+ * core/archive:
+ 
    API for access to archived data.
- * core-ui/docking
+ 
+ * core-ui/docking:
+ 
    A window environment similar to a web browser.
    Each window can have multiple tabs.
    Users can move tabs between existing windows,
-   or detach them into newly created windows. 
- * core-ui/selection
+   or detach them into newly created windows.
+   
+   The top-level Java FX *Node* for each application's
+   UI scene graph is basically a *Tab*,
+   wrapped in a Phoebus *DockItem* that tracks the
+   *AppInstance* to allow it to be saved and restored.
+ 
+ * core-ui/selection:
+ 
    API for publishing and monitoring a selection of
    for example PVs.
- * core-ui/toolbar
+ 
+ * core-ui/toolbar:
+ 
    SPI-based API to contributing to the window toolbar.
- * core-ui/menu
+ 
+ * core-ui/menu:
+ 
    SPI-based API to contributing to the window menu.
- * core-ui/context menu
+ 
+ * core-ui/context menu:
+ 
    SPI-based API to contributing to the application context menu.
- * core-ui/logging configuration
+ 
+ * core-ui/logging configuration:
+ 
    UI for configuring logging.
- * core-ui/job viewer
+ 
+ * core-ui/job viewer:
+ 
    UI for viewing the progress of jobs, allowing cancellation.
- * core-ui/pv list
+ 
+ * core-ui/pv list:
+ 
    UI for viewing active PVs and their connection state.
 
 
