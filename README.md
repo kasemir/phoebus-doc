@@ -13,3 +13,5 @@ Then build the web version:
 ```
    make clean html
 ```
+
+Restructured text reference: http://www.sphinx-doc.org/en/stable/rest.html
