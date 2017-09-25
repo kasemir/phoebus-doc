@@ -67,10 +67,10 @@ core-ui/docking:
    Users can move tabs between existing windows,
    or detach them into newly created windows.
    
-   The top-level Java FX *Node* for each application's
-   UI scene graph is basically a *Tab*,
-   wrapped in a Phoebus *DockItem* that tracks the
-   *AppInstance* to allow it to be saved and restored.
+   The top-level Java FX ``Node`` for each application's
+   UI scene graph is basically a ``Tab``,
+   wrapped in a Phoebus ``DockItem`` that tracks the
+   ``AppInstance`` to allow it to be saved and restored.
  
 core-ui/selection:
    API for publishing and monitoring a selection of
