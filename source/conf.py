@@ -250,6 +250,7 @@ highlight_language = 'none'
 
 from os import walk, path
 import subprocess, shutil
+import sys, traceback
 
 def createAppIndex():
     with open('applications.rst', 'w') as out:
@@ -260,18 +261,22 @@ The following sections describe details of specific application features.
 
 """)
 
-        if path.islink('phoebus'):
-            os.remove('phoebus')
-        elif path.isdir('phoebus'):
-            shutil.rmtree('phoebus')
-
-        # Locate root of phoebus applications.
-        if path.exists('../../phoebus/applications') and False:
-            # Have a local copy already, checked out parallel to phoebus-doc
-            os.symlink('../../phoebus', 'phoebus')
-        else:
-            # Clone the phoebus source code
-            subprocess.call("git clone --depth=1 --single-branch --branch=docs https://github.com/shroffk/phoebus.git", shell=True)
+        try:
+            if path.islink('phoebus'):
+                os.remove('phoebus')
+            elif path.isdir('phoebus'):
+                shutil.rmtree('phoebus')
+    
+            # Locate root of phoebus applications.
+            if path.exists('../../phoebus/applications'):
+                # Have a local copy already, checked out parallel to phoebus-doc
+                os.symlink('../../phoebus', 'phoebus')
+            else:
+                # Clone the phoebus source code
+                subprocess.call("git clone --depth=1 --single-branch --branch=docs https://github.com/shroffk/phoebus.git", shell=True)
+        except:
+            out.write("Cannot locate phobus applications\n")
+            out.write(str(traceback.format_exc()))
 
         app_root = 'phoebus/applications'
 
