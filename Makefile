@@ -39,7 +39,7 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 generate:
-	python make_app_index.py > source/applications.rst
+	python setup.py install
 
 clean:
 	-rm -rf $(BUILDDIR)/*
