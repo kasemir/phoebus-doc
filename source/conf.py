@@ -278,7 +278,7 @@ The following sections describe details of specific application features.
             out.write("Cannot locate phobus applications\n")
             out.write(str(traceback.format_exc()))
 
-        app_root = 'phoebus/applications'
+        app_root = 'phoebus'
 
         out.write("""
 .. toctree::
