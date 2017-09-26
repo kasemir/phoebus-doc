@@ -249,7 +249,7 @@ highlight_language = 'none'
 # by listing links to all applications/**/index.rst
 
 from os import walk, path
-import subprocess
+import subprocess, shutil
 
 def createAppIndex():
     with open('applications.rst', 'w') as out:
@@ -258,18 +258,34 @@ def createAppIndex():
 
 The following sections describe details of specific application features.
 
+""")
+
+        if path.islink('phoebus'):
+            os.remove('phoebus')
+        elif path.isdir('phoebus'):
+            shutil.rmtree('phoebus')
+
+        # Locate root of phoebus applications.
+        if path.exists('../../phoebus/applications') and False:
+            # Have a local copy already, checked out parallel to phoebus-doc
+            os.symlink('../../phoebus', 'phoebus')
+        else:
+            # Clone the phoebus source code
+            subprocess.call("git clone --depth=1 --single-branch --branch=docs https://github.com/shroffk/phoebus.git", shell=True)
+
+        app_root = 'phoebus/applications'
+
+        out.write("""
 .. toctree::
    :maxdepth: 1
 
 """)
-        for (dirpath, dirnames, filenames) in walk('applications'):
+        for (dirpath, dirnames, filenames) in walk(app_root):
             for filename in filenames:
                 if filename == 'index.rst':
                     file = path.join(dirpath, filename.replace(".rst", ""))
                     out.write("   " + file + "\n")
 
-        out.write( subprocess.check_output('git status', shell=True, stderr=out) )
-        out.write("Done.\n")
         out.write("\n")
 
 

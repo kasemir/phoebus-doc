@@ -1,5 +1,8 @@
 # Build directory
 build
 
+# Either symlink to ../phoebus,
+# or cloned from git
+source/phoebus
 # Applications index is created
 source/applications.rst
