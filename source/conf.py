@@ -243,3 +243,30 @@ texinfo_documents = [
 
 highlight_language = 'none'
 
+
+
+# Create applications.py
+# by listing links to all applications/**/index.rst
+
+from os import walk, path
+
+def createAppIndex():
+    with open('applications.rst', 'w') as out:
+        out.write("""Applications
+============
+
+The following sections describe details of specific application features.
+
+.. toctree::
+   :maxdepth: 1
+
+""")
+        for (dirpath, dirnames, filenames) in walk('applications'):
+            for filename in filenames:
+                if filename == 'index.rst':
+                    file = path.join(dirpath, filename.replace(".rst", ""))
+                    out.write("   " + file + "\n")
+
+
+createAppIndex()
+
