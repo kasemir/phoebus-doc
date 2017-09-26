@@ -249,6 +249,7 @@ highlight_language = 'none'
 # by listing links to all applications/**/index.rst
 
 from os import walk, path
+import subprocess
 
 def createAppIndex():
     with open('applications.rst', 'w') as out:
@@ -266,6 +267,10 @@ The following sections describe details of specific application features.
                 if filename == 'index.rst':
                     file = path.join(dirpath, filename.replace(".rst", ""))
                     out.write("   " + file + "\n")
+
+        out.write( subprocess.check_output('git status', shell=True, stderr=out) )
+        out.write("Done.\n")
+        out.write("\n")
 
 
 createAppIndex()
