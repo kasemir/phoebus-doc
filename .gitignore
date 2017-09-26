@@ -1,1 +1,5 @@
+# Build directory
 build
+
+# Applications index is created
+source/applications.rst

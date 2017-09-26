@@ -18,6 +18,7 @@ Contents:
    docking
    preferences
    persistence
+   applications
    develop
    architecture
 
