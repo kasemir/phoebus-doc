@@ -4,13 +4,29 @@ Preference Settings
 When you run Phoebus, you may find that it cannot connect to your control system
 because for example the EPICS Channel Access address list is not configured.
 
- 1) Exit Phoebus
- 2) Start Phoebus as ``phoebus.sh -export_settings /path/to/my_settings.xml``
- 3) Edit the exported file.
-    For example, find the ``addr_list`` entry and set it to the desired value::
+To locate available preferences, look file files named ``*preferences.properties``
+in the source code, for example in the PV Table application::
 
-         <entry key="addr_list" value="127.0.0.1 my_ca_gateway.site.org:5066"/>
- 4) Start Phoebus as ``phoebus.sh -settings /path/to/my_settings.xml``
+   # ----------------------------------------
+   # Package org.phoebus.applications.pvtable
+   # ----------------------------------------
+
+   # Show a "Description" column that reads xxx.DESC?
+   show_description=true
+
+
+Create a file ``settings.ini`` that lists the settings you want to change::
+
+   # Format:
+   #
+   #  package_name/setting=value
+
+   org.phoebus.applications.pvtable/show_description=false
+
+
+ Start Phoebus like this to import the settings from your file::
+
+  phoebus.sh -settings /path/to/settings.ini
 
 
 Conceptually, preference settings are meant to hold critical configuration
@@ -29,24 +45,28 @@ like context menus or configuration dialogs.
 Developer Notes
 ---------------
 
-In your code, use ``java.util.prefs.Preferences`` to read settings like this::
+In your code, create a ``preferences.properties`` file that lists the available settings::
 
+   # -------------------------------------------------------
+   # Package org.phoebus.applications.my_application_feature
+   # -------------------------------------------------------
+
+   # Explain what this setting means,
+   # what values are allowed etc.
+   my_setting=SomeValue
+
+
+Load that as the default, then read the ``java.util.prefs.Preferences`` like this::
+
+    import java.util.Properties;
     import java.util.prefs.Preferences;
 
-    final Preferences prefs = Preferences.userNodeForPackage(SomeTopLevelClassOfMyModule.class);
-    String value = prefs.get("some_setting", "default_value");
-    prefs.put("some_setting", value);
+    final Properties defaults = new Properties();
+    defaults.load(getClass().getResourceAsStream("/preferences.properties"));
 
-Note how this code pattern reads the setting, and then **writes** it.
-In case the setting is not defined in the preferences,
-you will thus add it to the preferences with the default value.
+    final Preferences prefs = Preferences.userNodeForPackage(getClass());
+    String value = prefs.get("my_setting", defaults.getProperty("my_setting"));
 
-This way, ``-export_settings`` will export "some_setting".
-Users are thus able to see the name of your setting and its default value,
-edit it, and then import the desired value.
-If you do not ``put`` your setting but only ``get`` it,
-end users would have to refer to your source code to learn about
-available settings and their default value.
 
 By default, the user settings are stored in a ``.phoebus`` folder
 in the home directory.
