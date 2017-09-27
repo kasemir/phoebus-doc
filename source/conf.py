@@ -286,10 +286,11 @@ The following sections describe details of specific application features.
 
 """)
         for (dirpath, dirnames, filenames) in walk(app_root):
-            for filename in filenames:
-                if filename == 'index.rst':
-                    file = path.join(dirpath, filename.replace(".rst", ""))
-                    out.write("   " + file + "\n")
+            if dirpath.endswith("doc"):
+                for filename in filenames:
+                    if filename == 'index.rst':
+                        file = path.join(dirpath, filename.replace(".rst", ""))
+                        out.write("   " + file + "\n")
 
         out.write("\n")
 

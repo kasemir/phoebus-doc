@@ -8,7 +8,7 @@ Welcome to the Phoebus Documentation!
 
 .. image:: splash.png
 
-Contents:
+User Documentation:
 
 .. toctree::
    :maxdepth: 1
@@ -19,8 +19,16 @@ Contents:
    preferences
    persistence
    applications
+
+Developer Documentation:
+
+.. toctree::
+   :maxdepth: 1
+
    develop
    architecture
+   locations
+   help_system
 
 
 Indices and tables
