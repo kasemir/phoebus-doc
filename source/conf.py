@@ -273,7 +273,7 @@ The following sections describe details of specific application features.
                 os.symlink('../../phoebus', 'phoebus')
             else:
                 # Clone the phoebus source code
-                subprocess.call("git clone --depth=1 --single-branch --branch=docs https://github.com/shroffk/phoebus.git", shell=True)
+                subprocess.call("git clone --depth=1 --single-branch --branch=master https://github.com/shroffk/phoebus.git", shell=True)
         except:
             out.write("Cannot locate phobus applications\n")
             out.write(str(traceback.format_exc()))
