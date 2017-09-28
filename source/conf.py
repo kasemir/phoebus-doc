@@ -277,6 +277,7 @@ The following sections describe details of specific application features.
         except:
             out.write("Cannot locate phobus applications\n")
             out.write(str(traceback.format_exc()))
+            return None
 
         app_root = 'phoebus'
 
@@ -293,7 +294,43 @@ The following sections describe details of specific application features.
                         out.write("   " + file + "\n")
 
         out.write("\n")
+        return app_root
 
 
-createAppIndex()
+# Create preference_properties.rst by listing
+# content of all **/*preferences.properties files.
+
+def createPreferenceAppendix(app_root):
+    with open('preference_properties.rst', 'w') as out:
+        out.write(""":orphan:
+
+.. _preference_settings:
+
+Preference Settings
+===================
+
+The following preference settings are avaialble for the various application features.
+
+""")
+
+        for (dirpath, dirnames, filenames) in walk(app_root):
+            for filename in filenames:
+                if filename.endswith("preferences.properties"):
+                    pref_file = path.join(dirpath, filename)
+                    # Use only files from sources, not those copied to target/classes
+                    if "target/classes" in pref_file:
+                        continue
+                    out.write(pref_file + "::\n\n")
+                    with open(pref_file) as prefs:
+                        for line in prefs:
+                            line = line.strip()
+                            out.write("   " + line + "\n")
+                    out.write("\n")
+
+        out.write("\n")
+
+
+app_root = createAppIndex()
+if app_root:
+    createPreferenceAppendix(app_root)
 

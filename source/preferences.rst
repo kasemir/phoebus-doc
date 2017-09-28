@@ -4,8 +4,10 @@ Preference Settings
 When you run Phoebus, you may find that it cannot connect to your control system
 because for example the EPICS Channel Access address list is not configured.
 
-To locate available preferences, look file files named ``*preferences.properties``
-in the source code, for example in the PV Table application::
+To locate available preferences, refer to the appendix
+:ref:`preference_settings`
+or check the source code for files named ``*preferences.properties``,
+for example in the PV Table application::
 
    # ----------------------------------------
    # Package org.phoebus.applications.pvtable
@@ -60,12 +62,15 @@ Load that as the default, then read the ``java.util.prefs.Preferences`` like thi
 
 
     import org.phoebus.framework.preferences.PreferencesReader;
+
     final PreferencesReader prefs = new PreferencesReader(getClass(), "/preferences.properties");
     
     String pref1 = prefs.get("my_setting");
     Boolean pref2 = prefs.getBoolean("my_other_setting");
     // .. use getInt, getDouble as needed
 
+The ``PreferencesReader`` loads defaults from the property file,
+then allows overrides via the ``java.util.prefs.Preferences`` API.
 By default, the user settings are stored in a ``.phoebus`` folder
 in the home directory.
 This location can be changed by setting the Java property ``java.util.prefs.userRoot``.

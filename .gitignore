@@ -4,5 +4,7 @@ build
 # Either symlink to ../phoebus,
 # or cloned from git
 source/phoebus
-# Applications index is created
+
+# Generated files
 source/applications.rst
+source/preference_properties.rst

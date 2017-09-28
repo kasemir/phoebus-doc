@@ -31,10 +31,11 @@ Developer Documentation:
    help_system
 
 
-Indices and tables
-==================
+Appendix
+========
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+* :doc:`preference_properties`
 
