@@ -58,15 +58,13 @@ In your code, create a ``preferences.properties`` file that lists the available 
 
 Load that as the default, then read the ``java.util.prefs.Preferences`` like this::
 
-    import java.util.Properties;
-    import java.util.prefs.Preferences;
 
-    final Properties defaults = new Properties();
-    defaults.load(getClass().getResourceAsStream("/preferences.properties"));
-
-    final Preferences prefs = Preferences.userNodeForPackage(getClass());
-    String value = prefs.get("my_setting", defaults.getProperty("my_setting"));
-
+    import org.phoebus.framework.preferences.PreferencesReader;
+    final PreferencesReader prefs = new PreferencesReader(getClass(), "/preferences.properties");
+    
+    String pref1 = prefs.get("my_setting");
+    Boolean pref2 = prefs.getBoolean("my_other_setting");
+    // .. use getInt, getDouble as needed
 
 By default, the user settings are stored in a ``.phoebus`` folder
 in the home directory.
