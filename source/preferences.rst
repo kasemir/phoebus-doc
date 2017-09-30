@@ -22,14 +22,11 @@ Create a file ``settings.ini`` that lists the settings you want to change::
    # Format:
    #
    #  package_name/setting=value
-
    org.phoebus.applications.pvtable/show_description=false
 
-
- Start Phoebus like this to import the settings from your file::
+Start Phoebus like this to import the settings from your file::
 
   phoebus.sh -settings /path/to/settings.ini
-
 
 Conceptually, preference settings are meant to hold critical configuration
 parameters like the control system network configuration.
@@ -37,7 +34,7 @@ They are configured by system administrators, and once they are properly adjuste
 for your site, there is usually no need to change them.
 
 Most important, these are not settings that an end user would need to see
-and adjust during ordinary use of the application.
+and frequently adjust during ordinary use of the application.
 For such runtime settings, each applicaition needs to offer user interface options
 like context menus or configuration dialogs.
 
@@ -47,23 +44,24 @@ like context menus or configuration dialogs.
 Developer Notes
 ---------------
 
-In your code, create a ``preferences.properties`` file that lists the available settings::
+In your code, create a file with a name that ends in ``*preferences.properties``.
+In that file, list the available settings, with explanatory comments::
 
-   # -------------------------------------------------------
-   # Package org.phoebus.applications.my_application_feature
-   # -------------------------------------------------------
+   # ---------------------------------------
+   # Package org.phoebus.applications.my_app
+   # ---------------------------------------
 
    # Explain what this setting means,
    # what values are allowed etc.
    my_setting=SomeValue
 
-
 Load that as the default, then read the ``java.util.prefs.Preferences`` like this::
 
-
+    package org.phoebus.applications.my_app
+    
     import org.phoebus.framework.preferences.PreferencesReader;
 
-    final PreferencesReader prefs = new PreferencesReader(getClass(), "/preferences.properties");
+    final PreferencesReader prefs = new PreferencesReader(getClass(), "/my_app_preferences.properties");
     
     String pref1 = prefs.get("my_setting");
     Boolean pref2 = prefs.getBoolean("my_other_setting");
