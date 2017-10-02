@@ -90,3 +90,40 @@ Follow-up invocations, for example::
    phoebus.sh -server 4918 -resource /path/to/some/file.pvs
 
 will contact the already running instance and have it open the requested file.
+
+
+Linux Installation with File Browser Integration
+------------------------------------------------
+
+This example builds and installs the distribution in ``/opt/phoebus``,
+creates a user-specific *server* launcher,
+and integrates that with the file browser.
+
+First build and install Phoebus::
+
+   ant dist
+   sudo unzip -d /opt phoebus-product/target/phoebus-0.0.1.zip
+   sudo ln -s /opt/phoebus-0.0.1 /opt/phoebus
+
+Based on the generic launcher, create a copy for the user::
+
+   mkdir -p ~/bin
+   cp /opt/phoebus/phoebus.sh $USER/bin/phoebus
+
+Edit the user's laucher file to include the path to your Java 9 setup
+and enable the 'server' mode, using a unique port for that user::
+
+   #!/bin/sh
+   # File $USER/bin/phoebus
+   TOP="/opt/phoebus"
+   export JAVA_HOME=/opt/jdk-9
+   export PATH="$JAVA_HOME/bin:$PATH"
+   java -jar ${TOP}/product-0.0.1.jar -server 4918 "$@" &
+
+To test, run ``phoebus`` and assert that the product starts up.
+Open a PV Table, add a PV name, close the PV Table and follow
+the prompt to save the file as "/tmp/example.pvs".
+Now run ``phoebus -resource /tmp/example.pvs``.
+If Phoebus was not already running, it should start the product.
+Then it opens the table in the one and only instance.
+
