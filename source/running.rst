@@ -107,7 +107,7 @@ First build and install Phoebus::
 
 Based on the generic launcher, create a copy for the user::
 
-   mkdir -p ~/bin
+   mkdir -p $USER/bin
    cp /opt/phoebus/phoebus.sh $USER/bin/phoebus
 
 Edit the user's laucher file to include the path to your Java 9 setup
@@ -127,3 +127,32 @@ Now run ``phoebus -resource /tmp/example.pvs``.
 If Phoebus was not already running, it should start the product.
 Then it opens the table in the one and only instance.
 
+Register the MIME types supported by Phoebus applications.
+This will for example register the MIME type ``application/pvtable``
+for files with the ``*.pvs`` extension::
+
+   sudo cp /opt/phoebus/phoebus.xml /usr/share/mime/packages
+   sudo update-mime-database /usr/share/mime
+
+Register the user's launcher with the Linux desktop::
+ 
+   cp /opt/phoebus/phoebus.desktop ~/.local/share/applications/
+   # Edit the file so that the 'Exec' entry
+   # contains the full path to $HOME/bin/phoebus,
+   # for example
+   #  
+   # Exec=/home/xyz/bin/phoebus -resource %f
+   gedit ~/.local/share/applications/phoebus.desktop
+
+Associate the files supported by Phoebus with the product in ~/.config/mimeapps.list
+
+   [Added Associations]
+   application/pvtable=phoebus.desktop;
+   
+When you now open a new GNOME ``nautilus`` file browser, you can double-click
+on ``*.pvs`` files and they open in Phoebus.
+In addition, you may copy that ``*.desktop`` file to the ``~/Desktop`` folder
+to offer a desktop link.
+
+
+ 
