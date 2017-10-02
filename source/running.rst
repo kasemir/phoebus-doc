@@ -144,7 +144,7 @@ Register the user's launcher with the Linux desktop::
    # Exec=/home/xyz/bin/phoebus -resource %f
    gedit ~/.local/share/applications/phoebus.desktop
 
-Associate the files supported by Phoebus with the product in ~/.config/mimeapps.list
+Associate the files supported by Phoebus with the product in ~/.config/mimeapps.list::
 
    [Added Associations]
    application/pvtable=phoebus.desktop;
