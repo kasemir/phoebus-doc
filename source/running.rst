@@ -20,15 +20,15 @@ From the command-line, invoke ``phoebus.sh -help``::
      Command-line arguments:
      
      -help                                   -  This text
-     -settings settings.xml                  -  Import settings from file
+     -settings settings.xml                  -  Import settings from file, either exported XML or property file format
      -export_settings settings.xml           -  Export settings to file
      -list                                   -  List available application features
-     -app "probe?pv=pv_name1&pv=pv_name2"    -  Launch an application with input arguments
+     -app probe                              -  Launch an application with input arguments
      -resource  /tmp/example.plt             -  Open an application configuration file with the default application
      -server port                            -  Create instance server on given TCP port
    
-   In 'server' mode, first instance opens UI.
-   Additional calls to open resources are then forwarded to the initial instance.
+     In 'server' mode, first instance opens UI.
+     Additional calls to open resources are then forwarded to the initial instance.
 
 
 Command Line Parameters for Applications
@@ -41,30 +41,29 @@ Open empty instance of probe::
 
     phoebus.sh -app probe
 
-Open probe with a PV name::
-
-    phoebus.sh -app probe?pv=MyPV
-
-Open three instances of probe, each with a PV name::
-
-    phoebus.sh -app probe?pv=MyPV&pv=AnotherPV&pv=YetAnotherPV
-
 Open empty PV Table::
 
     phoebus.sh -app pv_table
-
-Open PV Table with some PVs::
-
-    phoebus.sh -app pv_table?pv=MyPV&pv=AnotherPV&pv=YetAnotherPV
-
-Open PV Table for given input file::
-
-    phoebus.sh -app pv_table?file=/path/to/example.pvs
 
 Open a file with the appropriate application feature (PV Table in this case)::
 
     phoebus.sh -resource /path/to/example.pvs
 
+The '-resource' parameter can be a URI for a file or web link::
+
+    phoebus.sh -resource http://my.site/path/to/example.pvs
+
+The schema 'pv://?PV1&PV2&PV3' is used to pass PV names,
+and the 'app=..' query parameter picks a specific app for opening the resource.
+
+Open probe with a PV name::
+
+    phoebus.sh -resource pv://?sim://sine&app=probe              
+
+
+Open PV Table with some PVs::
+
+    phoebus.sh -resource pv://?MyPV&pv=AnotherPV&pv=YetAnotherPV&app=pv_table              
 
 Note that all these examples use the internal name of the application feature,
 for example "pv_table", and not the name that is displayed the user interface,
