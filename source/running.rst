@@ -19,17 +19,13 @@ From the command-line, invoke ``phoebus.sh -help``::
      
      Command-line arguments:
      
-     -help                                   -  This text
-     -settings settings.xml                  -  Import settings from file, either exported XML or property file format
-     -export_settings settings.xml           -  Export settings to file
-     -list                                   -  List available application features
-     -app probe                              -  Launch an application with input arguments
-     -resource  /tmp/example.plt             -  Open an application configuration file with the default application
-     -server port                            -  Create instance server on given TCP port
-   
-     In 'server' mode, first instance opens UI.
-     Additional calls to open resources are then forwarded to the initial instance.
-
+     -help                           -  This text
+     -settings settings.xml          -  Import settings from file, either exported XML or property file format
+     -export_settings settings.xml   -  Export settings to file
+     -list                           -  List available application features
+     -app probe                      -  Launch an application with input arguments
+     -resource  /tmp/example.plt     -  Open an application configuration file with the default application
+     -server port                    -  Create instance server on given TCP port
 
 Command Line Parameters for Applications
 ----------------------------------------
@@ -63,7 +59,7 @@ Open probe with a PV name::
 
 Open PV Table with some PVs::
 
-    phoebus.sh -resource pv://?MyPV&pv=AnotherPV&pv=YetAnotherPV&app=pv_table              
+    phoebus.sh -resource pv://?MyPV&AnotherPV&YetAnotherPV&app=pv_table              
 
 Note that all these examples use the internal name of the application feature,
 for example "pv_table", and not the name that is displayed the user interface,
