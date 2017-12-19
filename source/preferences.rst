@@ -7,7 +7,7 @@ because for example the EPICS Channel Access address list is not configured.
 To locate available preferences, refer to the appendix
 :ref:`preference_settings`
 or check the source code for files named ``*preferences.properties``,
-for example in the PV Table application::
+for example in the ``core-pv`` sources::
 
    # ----------------------------------------
    # Package org.phoebus.applications.pvtable
@@ -15,6 +15,13 @@ for example in the PV Table application::
 
    # Show a "Description" column that reads xxx.DESC?
    show_description=true
+   
+   # -------------------------
+   # Package org.phoebus.pv.ca
+   # -------------------------
+   
+   # Channel Access address list
+   addr_list=
 
 
 Create a file ``settings.ini`` that lists the settings you want to change::
@@ -22,7 +29,8 @@ Create a file ``settings.ini`` that lists the settings you want to change::
    # Format:
    #
    #  package_name/setting=value
-   org.phoebus.applications.pvtable/show_description=false
+   org.phoebus.pv.ca/addr_list=127.0.0.1 my_ca_gateway.site.org:5066
+
 
 Start Phoebus like this to import the settings from your file::
 
@@ -37,6 +45,12 @@ Most important, these are not settings that an end user would need to see
 and frequently adjust during ordinary use of the application.
 For such runtime settings, each applicaition needs to offer user interface options
 like context menus or configuration dialogs.
+
+When you package phoebus for distribution at your site, you can also place
+a file ``settings.ini`` in the installation location (see :ref:`locations`).
+At startup, Phoebus will automatically load the file ``settings.ini``
+from the installation location, eliminating the need for your users
+to add the ``-settings ..`` command line option.
 
 
 .. _preferences-notes:
