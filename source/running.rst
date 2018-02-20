@@ -49,6 +49,15 @@ The '-resource' parameter can be a URI for a file or web link::
 
     phoebus.sh -resource http://my.site/path/to/example.pvs
 
+Some resource types are supported by multiple applications.
+For example, a display file "my_display.bob" can be handled by both
+the "display_runtime" and the "display_editor" application.
+A preference setting "org.phoebus.ui/default_apps" defines
+which application will be used by default,
+and a specific application can be requested like this::
+
+    phoebus.sh -resource /path/to/my_display.bob?app=display_editor
+
 The schema 'pv://?PV1&PV2&PV3' is used to pass PV names,
 and the 'app=..' query parameter picks a specific app for opening the resource.
 
