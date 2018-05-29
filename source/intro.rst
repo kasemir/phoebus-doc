@@ -9,7 +9,7 @@ that removes dependencies on Eclipse RCP and SWT.
 
 While Eclipse RCP has served CS-Studio well for about a decade,
 we are beginning to experience its limitations for control system
-user interface developemnt.
+user interface development.
 
 Key Goals of the Phoebus project:
 
