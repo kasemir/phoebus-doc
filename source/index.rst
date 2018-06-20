@@ -18,6 +18,7 @@ User Documentation:
    docking
    preferences
    persistence
+   authorization
    applications
 
 Developer Documentation:
