@@ -246,7 +246,7 @@ highlight_language = 'none'
 
 
 # Create applications.py
-# by listing links to all applications/**/index.rst
+# by listing links to all app/**/index.rst
 
 from os import walk, path
 import subprocess, shutil
@@ -268,7 +268,7 @@ The following sections describe details of specific application features.
                 shutil.rmtree('phoebus')
     
             # Locate root of phoebus applications.
-            if path.exists('../../phoebus/applications'):
+            if path.exists('../../phoebus/app'):
                 # Have a local copy already, checked out parallel to phoebus-doc
                 os.symlink('../../phoebus', 'phoebus')
             else:
