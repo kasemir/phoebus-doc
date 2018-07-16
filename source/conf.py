@@ -287,9 +287,15 @@ The following sections describe details of specific application features.
 
 """)
         for (dirpath, dirnames, filenames) in walk(app_root):
+            if dirpath.endswith("html"):
+                dest = path.join("../build/html", dirpath)
+                print("Adding static content from: " + dirpath + " to " + dest)
+                # build/html/phoebus/app/display/editor/doc
+                shutil.copytree(dirpath, dest) 
             if dirpath.endswith("doc"):
                 for filename in filenames:
                     if filename == 'index.rst':
+                        print("Adding to applications.rst: " + dirpath + "/index.rst")
                         file = path.join(dirpath, filename.replace(".rst", ""))
                         out.write("   " + file + "\n")
 
@@ -309,7 +315,7 @@ def createPreferenceAppendix(app_root):
 Preference Settings
 ===================
 
-The following preference settings are avaialble for the various application features.
+The following preference settings are available for the various application features.
 
 """)
 
