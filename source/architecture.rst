@@ -3,8 +3,6 @@ Architecture
 
 .. figure:: architecture.png
 
-    Phoebus Architecture
-
 The fundamental phoebus architecture consists of **core** modules,
 user-iterface related **core-ui** modules, and **app** modules.
 The core modules provide the infrastructure, while app modules
@@ -21,7 +19,7 @@ on the current selection.
 Core Modules
 ------------
 
-core/framework:
+core-framework:
    Fundamentals that many applications use, for example prerences, persistence,
    jobs, macros, localization, autocompletion.
    
@@ -48,16 +46,16 @@ core/framework:
    The ``JobManager`` API allows submitting jobs based on a ``JobRunnable``
    that supports progress reporting and cancellation.
  
-core/pv:
+core-pv:
    API for access to life data from Process Variables.
    
-core/logbook:
+core-logbook:
    API for accessing a logbook, with SPI for site-specific implementations. 
 
-core/email:
+core-email:
    API for creating emails. 
 
-core/security:
+core-security:
    API for authorization and secure storage. 
 
 core-ui:
