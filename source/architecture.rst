@@ -7,6 +7,8 @@ The fundamental phoebus architecture consists of **core** modules,
 user-iterface related **core-ui** modules, and **app** modules.
 The core modules provide the infrastructure, while app modules
 implement specific application functionality.
+Everything is based on Java version 9 or higher, using Java FX as
+a graphics library.
 
 A Phoebus product may contain just one application,
 for example only one of Probe, PV Tree, PV Table, Display Builder Runtime,
