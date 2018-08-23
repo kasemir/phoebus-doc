@@ -260,7 +260,9 @@ def createAppIndex():
 The following sections describe details of specific application features.
 
 """)
-
+        # Create phoebus-doc/source/phoebus,
+        # either as symlink to ../../phoebus that has already been checked out of git,
+        # or by cloning from git
         try:
             if path.islink('phoebus'):
                 os.remove('phoebus')
@@ -279,6 +281,8 @@ The following sections describe details of specific application features.
             out.write(str(traceback.format_exc()))
             return None
 
+        # Locate index.rst files (presumably under core/*/doc/index.rst or app/*/doc/index.rst)
+        # as well as existing html folders
         app_root = 'phoebus'
 
         out.write("""
@@ -287,6 +291,10 @@ The following sections describe details of specific application features.
 
 """)
         for (dirpath, dirnames, filenames) in walk(app_root):
+            # Consider only 'original' files, not those
+            # that have already been copied to phoebus-product/target/doc
+            if "/target/" in dirpath:
+                continue
             if dirpath.endswith("html"):
                 dest = path.join("../build/html", dirpath)
                 print("Adding static content from: " + dirpath + " to " + dest)
