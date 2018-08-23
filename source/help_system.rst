@@ -17,7 +17,7 @@ This is done by adding a ``doc/`` folder with an ``index.rst``
 file to the application sources.
 When phoebus-doc is built, it includes all ``phoebus/**/doc/index.rst``
 in the Applications section of the manual.
-While the *.rst markup is ultimately converted into HTML,
+While the ``*.rst`` markup is ultimately converted into HTML,
 some applications might have already have HTML content generated
 by other means, for example from Javadoc.
 Any ``doc/html`` folder found in the applications source code is
