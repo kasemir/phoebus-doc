@@ -3,8 +3,7 @@ Starting Phoebus
 
 For build instructions, refer to the README.md on https://github.com/shroffk/phoebus
 
-For pre-built binaries:
-TODO, need to publish the result of ``ant dist`` somewhere.
+For pre-built binaries, see https://ics-web.sns.ornl.gov/css/phoebus
 
 From the command-line, invoke ``phoebus.sh -help``::
 
