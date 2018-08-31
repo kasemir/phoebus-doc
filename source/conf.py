@@ -311,10 +311,31 @@ The following sections describe details of specific application features.
         return app_root
 
 
+# Given a *_preferences.properties file,
+# look for "# Package xxx" to get the package name.
+# Fall back to the file name.
+def get_package(file):
+    with open(file) as f:
+        for line in f:
+            if line.startswith("# Package "):
+                return line[10:].strip()
+    return os.path.basename(file)
+
 # Create preference_properties.rst by listing
 # content of all **/*preferences.properties files.
-
 def createPreferenceAppendix(app_root):
+    # Locate all files
+    pref_files = dict()
+    for (dirpath, dirnames, filenames) in walk(app_root):
+        for filename in filenames:
+            if filename.endswith("preferences.properties"):
+                pref_file = path.join(dirpath, filename)
+                # Use only files from sources, not those copied to target/classes
+                if "target/classes" in pref_file:
+                    continue
+                pack = get_package(pref_file)
+                pref_files[pack] = pref_file
+
     with open('preference_properties.rst', 'w') as out:
         out.write(""":orphan:
 
@@ -324,23 +345,22 @@ Preference Settings
 ===================
 
 The following preference settings are available for the various application features.
+To use them in your settings file, remember to prefix each setting with the package name.
 
 """)
-
-        for (dirpath, dirnames, filenames) in walk(app_root):
-            for filename in filenames:
-                if filename.endswith("preferences.properties"):
-                    pref_file = path.join(dirpath, filename)
-                    # Use only files from sources, not those copied to target/classes
-                    if "target/classes" in pref_file:
-                        continue
-                    out.write(pref_file + "::\n\n")
-                    with open(pref_file) as prefs:
-                        for line in prefs:
-                            line = line.strip()
-                            out.write("   " + line + "\n")
-                    out.write("\n")
-
+        for pack in sorted(pref_files.keys()):
+            pref_file = pref_files[pack]
+            out.write("\n")
+            out.write(pack + "\n")
+            out.write(("-" * len(pack)) + "\n")
+            out.write("\n")
+            out.write("File " + pref_file + "::\n\n")
+            with open(pref_file) as prefs:
+                for line in prefs:
+                    line = line.strip()
+                    out.write("   " + line + "\n")
+            out.write("\n")
+        
         out.write("\n")
 
 

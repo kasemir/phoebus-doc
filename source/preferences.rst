@@ -4,7 +4,7 @@ Preference Settings
 When you run Phoebus, you may find that it cannot connect to your control system
 because for example the EPICS Channel Access address list is not configured.
 
-To locate available preferences, refer to the appendix
+To locate available preferences, refer to the complete list of
 :ref:`preference_settings`
 or check the source code for files named ``*preferences.properties``,
 for example in the ``core-pv`` sources::
@@ -65,9 +65,20 @@ In that file, list the available settings, with explanatory comments::
    # Package org.phoebus.applications.my_app
    # ---------------------------------------
 
-   # Explain what this setting means,
+   # Note that the above
+   #
+   #    "# Package name.of.your.package"
+   #
+   # is important. It is used to format the online help,
+   # and users will need to know the package name to
+   # assemble their settings file.
+
+   # Explain what each setting means,
    # what values are allowed etc.
    my_setting=SomeValue
+   
+   # Enable some feature, allowed values are true or false
+   my_other_setting=true
 
 Load that as the default, then read the ``java.util.prefs.Preferences`` like this::
 
@@ -75,6 +86,7 @@ Load that as the default, then read the ``java.util.prefs.Preferences`` like thi
     
     import org.phoebus.framework.preferences.PreferencesReader;
 
+    # The class that you pass here determines the package name for your preferences
     final PreferencesReader prefs = new PreferencesReader(getClass(), "/my_app_preferences.properties");
     
     String pref1 = prefs.get("my_setting");
@@ -85,7 +97,7 @@ The ``PreferencesReader`` loads defaults from the property file,
 then allows overrides via the ``java.util.prefs.Preferences`` API.
 By default, the user settings are stored in a ``.phoebus`` folder
 in the home directory.
-This location can be changed by setting the Java property ``java.util.prefs.userRoot``.
+This location can be changed by setting the Java property ``phoebus.user``.
 
 In the future, a preference UI might be added, but as mentioned
 the preference settings are not meant to be adjusted by end users.

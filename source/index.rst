@@ -30,7 +30,7 @@ Developer Documentation:
    architecture
    locations
    help_system
-
+   preference_properties
 
 Appendix
 ========
@@ -38,5 +38,4 @@ Appendix
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-* :doc:`preference_properties`
 
