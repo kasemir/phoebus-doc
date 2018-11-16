@@ -3,7 +3,7 @@ Starting Phoebus
 
 For build instructions, refer to the README.md on https://github.com/shroffk/phoebus
 
-For pre-built binaries, see https://ics-web.sns.ornl.gov/css/phoebus
+For pre-built binaries, see https://controlssoftware.sns.ornl.gov/css_phoebus/
 
 From the command-line, invoke ``phoebus.sh -help``::
 
