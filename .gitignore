@@ -7,4 +7,5 @@ source/phoebus
 
 # Generated files
 source/applications.rst
+source/services.rst
 source/preference_properties.rst

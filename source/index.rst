@@ -20,6 +20,7 @@ User Documentation:
    persistence
    authorization
    applications
+   services
 
 Developer Documentation:
 

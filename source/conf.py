@@ -245,70 +245,68 @@ highlight_language = 'none'
 
 
 
-# Create applications.py
+# Create applications.rst, services.rst
 # by listing links to all app/**/index.rst
 
 from os import walk, path
 import subprocess, shutil
 import sys, traceback
 
-def createAppIndex():
-    with open('applications.rst', 'w') as out:
-        out.write("""Applications
-============
 
-The following sections describe details of specific application features.
+def locatePhoebusSources():
+    # Create phoebus-doc/source/phoebus,
+    # either as symlink to ../../phoebus that has already been checked out of git,
+    # or by cloning from git
+    # Returns the phoebus source directory or None
+    try:
+        if path.islink('phoebus'):
+            os.remove('phoebus')
+        elif path.isdir('phoebus'):
+            shutil.rmtree('phoebus')
+   
+        # Locate root of phoebus applications.
+        if path.exists('../../phoebus/app'):
+            # Have a local copy already, checked out parallel to phoebus-doc
+            os.symlink('../../phoebus', 'phoebus')
+        else:
+            # Clone the phoebus source code
+            subprocess.call("git clone --depth=1 --single-branch --branch=master https://github.com/shroffk/phoebus.git", shell=True)
+        return 'phoebus'
+    except:
+        out.write("Cannot locate phobus applications\n")
+        out.write(str(traceback.format_exc()))
+        return None
 
-""")
-        # Create phoebus-doc/source/phoebus,
-        # either as symlink to ../../phoebus that has already been checked out of git,
-        # or by cloning from git
-        try:
-            if path.islink('phoebus'):
-                os.remove('phoebus')
-            elif path.isdir('phoebus'):
-                shutil.rmtree('phoebus')
-    
-            # Locate root of phoebus applications.
-            if path.exists('../../phoebus/app'):
-                # Have a local copy already, checked out parallel to phoebus-doc
-                os.symlink('../../phoebus', 'phoebus')
-            else:
-                # Clone the phoebus source code
-                subprocess.call("git clone --depth=1 --single-branch --branch=master https://github.com/shroffk/phoebus.git", shell=True)
-        except:
-            out.write("Cannot locate phobus applications\n")
-            out.write(str(traceback.format_exc()))
-            return None
-
+def createDocListing(rst_file, header, roots):
+    with open(rst_file, 'w') as out:
+        out.write(header)
         # Locate index.rst files (presumably under core/*/doc/index.rst or app/*/doc/index.rst)
         # as well as existing html folders
-        app_root = 'phoebus'
 
         out.write("""
 .. toctree::
    :maxdepth: 1
 
 """)
-        for (dirpath, dirnames, filenames) in walk(app_root):
-            # Consider only 'original' files, not those
-            # that have already been copied to phoebus-product/target/doc
-            if "/target/" in dirpath:
-                continue
-            if dirpath.endswith("html"):
-                dest = path.join("../build/html", dirpath)
-                print("Adding static content from: " + dirpath + " to " + dest)
-                # build/html/phoebus/app/display/editor/doc
-                shutil.copytree(dirpath, dest) 
-            if dirpath.endswith("doc"):
-                for filename in filenames:
-                    if filename == 'index.rst':
-                        print("Adding to applications.rst: " + dirpath + "/index.rst")
-                        file = path.join(dirpath, filename.replace(".rst", ""))
-                        out.write("   " + file + "\n")
+        for root in roots:
+            for (dirpath, dirnames, filenames) in walk(root):
+                # Consider only 'original' files, not those
+                # that have already been copied to phoebus-product/target/doc
+                if "/target/" in dirpath:
+                    continue
+                if dirpath.endswith("html"):
+                    dest = path.join("../build/html", dirpath)
+                    print("Adding static content from: " + dirpath + " to " + dest)
+                    # build/html/phoebus/app/display/editor/doc
+                    shutil.copytree(dirpath, dest) 
+                if dirpath.endswith("doc"):
+                    for filename in filenames:
+                        if filename == 'index.rst':
+                            print("Adding to applications.rst: " + dirpath + "/index.rst")
+                            file = path.join(dirpath, filename.replace(".rst", ""))
+                            out.write("   " + file + "\n")
 
         out.write("\n")
-        return app_root
 
 
 # Given a *_preferences.properties file,
@@ -323,10 +321,10 @@ def get_package(file):
 
 # Create preference_properties.rst by listing
 # content of all **/*preferences.properties files.
-def createPreferenceAppendix(app_root):
+def createPreferenceAppendix(root):
     # Locate all files
     pref_files = dict()
-    for (dirpath, dirnames, filenames) in walk(app_root):
+    for (dirpath, dirnames, filenames) in walk(root):
         for filename in filenames:
             if filename.endswith("preferences.properties"):
                 pref_file = path.join(dirpath, filename)
@@ -364,7 +362,21 @@ To use them in your settings file, remember to prefix each setting with the pack
         out.write("\n")
 
 
-app_root = createAppIndex()
-if app_root:
-    createPreferenceAppendix(app_root)
+root = locatePhoebusSources()
+if root:
+    createDocListing('applications.rst', """Applications
+============
+
+The following sections describe details of specific application features.
+
+""", [ path.join(root, "core"), path.join(root, "app") ])
+
+    createDocListing('services.rst', """Services
+========
+
+The following sections describe available services.
+
+""", [ path.join(root, "services") ])
+
+    createPreferenceAppendix(root)
 
