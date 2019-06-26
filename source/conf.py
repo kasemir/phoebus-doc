@@ -339,7 +339,7 @@ def createPreferenceAppendix(root):
 
 .. _preference_settings:
 
-Preference Settings
+Preferences Listing
 ===================
 
 The following preference settings are available for the various application features.
