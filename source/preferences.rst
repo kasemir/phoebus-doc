@@ -36,6 +36,12 @@ Start Phoebus like this to import the settings from your file::
 
   phoebus.sh -settings /path/to/settings.ini
 
+At runtime, you can view the currently effective preference settings
+from the menu ``Help``, ``About``. The ``Details`` pane includes a tab
+that lists all preference settings in the same format that is used by the
+``settings.ini`` file. You can copy settings that you need to change
+from the display into your settings file.
+
 Conceptually, preference settings are meant to hold critical configuration
 parameters like the control system network configuration.
 They are configured by system administrators, and once they are properly adjusted
