@@ -42,6 +42,20 @@ that lists all preference settings in the same format that is used by the
 ``settings.ini`` file. You can copy settings that you need to change
 from the display into your settings file.
 
+The same details pane that lists current preference settings also
+offers an ``Import Preferences`` button for loading a ``settings.ini``
+file. You may use that as an alternative to the command line ``-settings ..`` option,
+but note that settings loaded via this button only become effective
+after a restart.
+
+Settings loaded via either the ``-settings ..`` command line option
+or the ``Import Preferences`` button are stored in the user location (see :ref:`locations`).
+They remain effective until different settings are loaded or the user location is deleted.
+It is therefore not neccessary to always run the application with the same
+``-settings ..`` command line option. Just invoking with the command line option
+once or using the ``Import Preferences`` button once suffices to load settings.
+
+
 Conceptually, preference settings are meant to hold critical configuration
 parameters like the control system network configuration.
 They are configured by system administrators, and once they are properly adjusted
