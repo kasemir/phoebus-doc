@@ -316,7 +316,13 @@ def get_package(file):
     with open(file) as f:
         for line in f:
             if line.startswith("# Package "):
-                return line[10:].strip()
+                pack = line[10:].strip()
+                # Simplify a little to avoid long names in Table of Contents
+                pack = pack.replace("org.csstudio.", "")
+                pack = pack.replace("org.phoebus.applications.", "")
+                pack = pack.replace("org.phoebus.app.", "")
+                pack = pack.replace("org.phoebus.", "")
+                return pack
     return os.path.basename(file)
 
 # Create preference_properties.rst by listing
