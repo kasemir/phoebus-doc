@@ -19,33 +19,87 @@ Then build the web version:
    make clean html
 ```
 
-which creates document tree starting with `build/html/index.html`. 
+which creates document tree starting with `build/html/index.html`.
+
+As detailed below, the documentation includes components from the phoebus source code tree,
+which in turn may include generated HTML content.
+The complete documentation build process therefore is:
+```
+# Obtain sources for Documentation and Product
+git clone https://github.com/kasemir/phoebus-doc.git
+git clone https://github.com/shroffk/phoebus.git
+
+# Build the Javadoc, i.e. html files to be included in the manual
+( cd phoebus/app/display/editor; ant -f javadoc.xml clean all )
+
+# Building the documentation
+( cd phoebus-doc; make clean html )
+```
+
+When then building the Phoebus UI product, it will incude the document tree
+as online help accessible via the `Help` menu.
 
 
-Top-Level Documentation
------------------------
+Documentation Components
+------------------------
 
-The files in `phoebus-doc/source`, starting with `index.rst`,
-represent the top-level documentation.
+1) Top-Level Documentation
 
-For ReStructured Text reference, see http://www.sphinx-doc.org/en/stable/rest.html
+   The files in this repository, i.e. the files in `phoebus-doc/source`, starting with `index.rst`,
+   form the basis of the documentation tree.provide the top-level documentation.
+   
+   For details on the `*.rst` file format, refer to the
+   ReStructured Text reference, see http://www.sphinx-doc.org/en/stable/rest.html
 
+2) Phoebus Module Documentation
 
+   The `../phoebus/core`, `../phoebus/app` and `../phoebus/services`
+   folders are checked for `doc/index.rst` files to include.
+   This allows Phoebus source code to contribute to the documentation.
+   For example, application modules will be added
+   to the "Applications" section of the top-level documentation.
 
-Application Documentation
--------------------------
+3) Preference Descriptions
 
-Phoebus source code can contribute files which will be included
-in an "Applications" section of the top-level documentation.
+   The content of all `../phoebus/**preferences.properties` files
+   is added to a "Preferences Listing" appendix of the documentation.
+   The preference file should start with a `# Package ...` header
+   to allow listing it in the table of contents.
+   Example:
+   
+   ```
+   # --------------------------------
+   # Package the.phoebus.package.name
+   # --------------------------------
+   
+   # Description of some setting
+   the_setting = default_value
+   ```
+   
+4) Plain HTML
 
-If the phoebus source code is checked out as `../phoebus`, all `../phoebus/**/doc/index.rst`
-files will be added to the ``source/applications.rst`` so they're translated and included in the manual.
+   The content of all `../phoebus/**/doc/html` folders is copied into the
+   henerated html output directory tree.
+   
+   This allows including existing HTML content "as is".
+   An `index.rst` file in the corresponding phoebus module may then refer
+   to it via `raw` link directives.
+   See `../phoebys/app/display/editor/doc` for an example.
+   
+   The inclusion of plain HTML content is meant to allow adding for example
+   Java Doc that is auto-generated, where it would be impractical to rewrite
+   the information as `*.rst`.
+   Note that the direct inclusion of existing HTML content is only possible when the
+   `*.rst` files are rendered as HTML, in which case `raw` directives can
+   then link them to the documentation.
+   When the `*.rst` files are rendered via LaTeX or PDF, plain HTML content is ignored.
+   
+   Whenever possible, documentation should thus use the `*.rst` file format
+   and be included via the first two options.
+   
 
-In addition, the content of all `../phoebus/**/doc/html` folders is copied into the manual,
-so the index.rst may refer to it via ``raw`` directives.
-
-Check `createAppIndex()` and `createPreferenceAppendix()` in source/conf.py for details,
-and see `app/display/editor/doc` for example.
+For technical details on how the document components are assembled,
+check `createAppIndex()` and `createPreferenceAppendix()` in `source/conf.py`.
 
 
 
