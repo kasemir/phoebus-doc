@@ -46,7 +46,7 @@ Documentation Components
 1) Top-Level Documentation
 
    The files in this repository, i.e. the files in `phoebus-doc/source`, starting with `index.rst`,
-   form the basis of the documentation tree.provide the top-level documentation.
+   form the basis of the documentation tree, meant to provide the top-level documentation.
    
    For details on the `*.rst` file format, refer to the
    ReStructured Text reference, see http://www.sphinx-doc.org/en/stable/rest.html
