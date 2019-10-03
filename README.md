@@ -62,9 +62,12 @@ Documentation Components
 3) Preference Descriptions
 
    The content of all `../phoebus/**preferences.properties` files
-   is added to a "Preferences Listing" appendix of the documentation.
+   is added to a "Preferences Listing" appendix of the documentation,
+   with a generated listing of preference packages.
+   
    The preference file should start with a `# Package ...` header
    to allow listing it in the table of contents.
+   
    Example:
    
    ```
@@ -84,7 +87,7 @@ Documentation Components
    This allows including existing HTML content "as is".
    An `index.rst` file in the corresponding phoebus module may then refer
    to it via `raw` link directives.
-   See `../phoebys/app/display/editor/doc` for an example.
+   See `../phoebus/app/display/editor/doc` for an example.
    
    The inclusion of plain HTML content is meant to allow adding for example
    Java Doc that is auto-generated, where it would be impractical to rewrite
