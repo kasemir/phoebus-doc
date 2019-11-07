@@ -32,6 +32,21 @@ Create a file ``settings.ini`` that lists the settings you want to change::
    org.phoebus.pv.ca/addr_list=127.0.0.1 my_ca_gateway.site.org:5066
 
 
+The ``value`` might be plain text, with details depending on the
+preference setting, for example allowing an IP address for the ``addr_list``
+or a ``true`` value for some boolean preference setting.
+In addition, Java properties or environment variables can be used like this::
+
+   # Example of using a Java property 'gateway'.
+   # If it is set to 'my_ca_gateway.site.org:5066',
+   # this example would have the same end result as
+   # the previous example.
+   #
+   # If no Java property 'gateway' is found,
+   # an environment variable 'gateway' is checked.
+   org.phoebus.pv.ca/addr_list=127.0.0.1 $(gateway)
+
+
 Start Phoebus like this to import the settings from your file::
 
   phoebus.sh -settings /path/to/settings.ini
@@ -54,7 +69,10 @@ They remain effective until different settings are loaded or the user location i
 It is therefore not neccessary to always run the application with the same
 ``-settings ..`` command line option. Just invoking with the command line option
 once or using the ``Import Preferences`` button once suffices to load settings.
-
+In practice, however, it is advisable to include the ``-settings ..`` command line option
+in a site-specific application start script.
+This way, new users do not need to remember to once start with the option,
+and existing users will benefit from changes to the settings file.
 
 Conceptually, preference settings are meant to hold critical configuration
 parameters like the control system network configuration.
