@@ -21,3 +21,22 @@ set when starting the product.
    Location where phoebus keeps the memento
    and preferences.
    Defaults to ``.phoebus`` in the user's home directory.
+
+Site-Specific Branding and Settings
+-----------------------------------
+
+The ``phoebus.install`` location is used for branding and site-specific settings.
+
+``settings.ini``:
+   At startup, Phoebus load preferences from this file if it is found
+   in the install location.
+   This allows packing site-specific settings into your product.
+   
+``site_splash.png``:
+   This image will replace the default spash screen background
+   with a site-specific version.
+   It should be sized 480x300.
+
+``site_logo.png``:
+   This 64x64 sized image will replace the default window logo.
+   
