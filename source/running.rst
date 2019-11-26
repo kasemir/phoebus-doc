@@ -1,11 +1,13 @@
-Starting Phoebus
-================
+Starting CS-Studio/Phoebus
+==========================
 
 For build instructions, refer to the README.md on https://github.com/shroffk/phoebus
 
 For pre-built binaries, see https://controlssoftware.sns.ornl.gov/css_phoebus/
 
-From the command-line, invoke ``phoebus.sh -help``::
+From the command-line, invoke ``phoebus.sh -help``, which will look
+similar to this, but check your copy of CS-Studio/Phoebus
+for the complete list::
 
       _______           _______  _______  ______            _______ 
      (  ____ )|\     /|(  ___  )(  ____ \(  ___ \ |\     /|(  ____ \
@@ -25,6 +27,8 @@ From the command-line, invoke ``phoebus.sh -help``::
      -app probe                      -  Launch an application with input arguments
      -resource  /tmp/example.plt     -  Open an application configuration file with the default application
      -server port                    -  Create instance server on given TCP port
+     (..more options, check your actual copy..)
+
 
 Command Line Parameters for Applications
 ----------------------------------------
