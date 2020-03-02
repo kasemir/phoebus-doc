@@ -1,7 +1,12 @@
 Phoebus Documentation
 =====================
 
-Documentation for https://github.com/shroffk/phoebus
+.. is now in https://github.com/ControlSystemStudio/phoebus
+
+This repository is deprecated.
+
+
+
 
 View latest snapshot at http://phoebus-doc.readthedocs.io
 
